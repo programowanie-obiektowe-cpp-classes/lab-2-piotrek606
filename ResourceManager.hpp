@@ -25,6 +25,19 @@ public:
         return *this;
     }
 
+    ResourceManager(ResourceManager&& other) noexcept : p_(other.p_) {other.p_ = nullptr;}
+
+
+    ResourceManager& operator=(ResourceManager&& other) noexcept
+    {
+        if (this != &other) {
+            delete p_;
+            p_       = other.p_;
+            other.p_ = nullptr;
+        }
+        return *this;
+    }
+
     double get() {
         return (*p_).get(); 
     }
